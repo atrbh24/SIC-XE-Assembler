@@ -18,7 +18,7 @@ startLoadingAddress = 0
 programSize = 0
 
 
-
+#symatable related
 def lookup(s):
     for i in range(0,len(symtable)):
         if s == symtable[i].string:
@@ -45,6 +45,7 @@ locctr = 0
 lookahead = ''
 startLine = True
 
+#Setting flags
 Xbit4set = 0x800000
 Bbit4set = 0x400000
 Pbit4set = 0x200000
@@ -69,6 +70,7 @@ def is_hex(s):
     else:
         return False
 
+#lexical analyzer
 def lexan():
     global fileContent, tokenval, lineno, bufferindex, locctr, startLine
 
@@ -170,7 +172,7 @@ def error(s):
     global lineno
     print('line ' + str(lineno) + ': '+s)
 
-
+#checks for match, and reads next word
 def match(token):
     global lookahead
     if lookahead == token:
@@ -179,16 +181,7 @@ def match(token):
         error('Syntax error')
 
 
-def checkindex():
-    global bufferindex, symtable, tokenval
-    if lookahead == ',':
-        match(',')
-        if symtable[tokenval].att != 1:
-            error('index regsiter should be X')
-        match('REG')
-        return True
-    return False
-
+############################## Syntax grammer function ###################################################
 def index():
     global inst
     if lookahead == ',':
@@ -202,7 +195,6 @@ def index():
             error('Index register should be X')
 
 
-    
 
 def rest3(prevStmtIndex):
     global inst
@@ -346,7 +338,7 @@ def parse():
 
     #code tail, sic instructions "end ......"
     tail()
-
+#################################################################################
 
 def main():
     global file, fileContent, locctr, pass1or2, bufferindex, lineno
