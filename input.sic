@@ -1,0 +1,5 @@
+ProgramName start 0x1000
+first   add label1
+label1 word 5
+end prog
+    
